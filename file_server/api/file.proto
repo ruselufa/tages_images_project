@@ -1,0 +1,39 @@
+syntax = "proto3";
+option go_package = "/gen";
+
+service FileService {
+  rpc UploadFile(UploadFileRequest) returns (UploadFileResponse);
+  rpc GetFile(GetFileRequest) returns (GetFileResponse);
+  rpc ListFiles(ListFilesRequest) returns (ListFilesResponse);
+}
+
+message UploadFileRequest {
+  string filename = 1;
+  bytes data = 2;
+}
+
+message UploadFileResponse {
+  string file_id = 1;
+}
+
+message GetFileRequest {
+  string file_id = 1;
+}
+
+message GetFileResponse {
+  string filname = 1;
+  bytes data = 2;
+}
+
+message ListFilesRequest {}
+
+message ListFilesResponse {
+  repeated FileInfo files = 1;
+}
+
+message FileInfo {
+  string file_id = 1;
+  string filename = 2;
+  int64 created_at = 3;
+  int64 updated_at = 4;
+}
