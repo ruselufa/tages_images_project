@@ -75,12 +75,12 @@ func (c *CLI) printWelcome() {
 // handleUpload handles upload command
 func (c *CLI) printHelp() {
 	fmt.Println("Available commands:")
-	fmt.Println("  upload <file_path>           - Upload a file to the server")
-	fmt.Println("  download <file_id> <path>    - Download a file by ID to specified path")
-	fmt.Println("  list                         - List all files on the server")
-	fmt.Println("  ping                         - Check server availability")
-	fmt.Println("  help                         - Show this help message")
-	fmt.Println("  quit/exit/q                  - Exit the client")
+	fmt.Println("  upload <file_path>                    - Upload a file to the server")
+	fmt.Println("  download <file_id> <path+filename>    - Download a file by ID to specified path")
+	fmt.Println("  list                                  - List all files on the server")
+	fmt.Println("  ping                                  - Check server availability")
+	fmt.Println("  help                                  - Show this help message")
+	fmt.Println("  quit/exit/q                           - Exit the client")
 	fmt.Println()
 }
 

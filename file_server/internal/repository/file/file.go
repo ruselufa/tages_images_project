@@ -77,7 +77,7 @@ func (r *Repository) SaveFile(filename string, data []byte) (string, error) {
 	fileID := hex.EncodeToString(hash[:])
 
 	// checking file for existing one
-	r.mutex.Lock()
+	r.mutex.RLock()
 	if _, exists := r.files[fileID]; exists {
 		r.mutex.RUnlock()
 		return fileID, nil

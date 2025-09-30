@@ -5,6 +5,7 @@ import (
 	"file_client/gen"
 	"fmt"
 	"os"
+	"path/filepath"
 	"time"
 
 	"google.golang.org/grpc"
@@ -103,6 +104,17 @@ func (c *Client) DownloadFileToPath(ctx context.Context, fileId, outputPath stri
 	resp, err := c.DownloadFile(ctx, fileId)
 	if err != nil {
 		return err
+	}
+
+	// check if outputPath is a dir
+	if stat, err := os.Stat(outputPath); err == nil && stat.IsDir() {
+		return fmt.Errorf("OUTPUT PATH IS A DIRECTORY: %s", outputPath)
+	}
+
+	// create dir if not exists
+	dir := filepath.Dir(outputPath)
+	if err := os.MkdirAll(dir, 0755); err != nil {
+		return fmt.Errorf("FAILED TO CREATE DIRECTORY %s: %w", dir, err)
 	}
 
 	err = os.WriteFile(outputPath, resp.Data, 0644)
