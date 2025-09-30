@@ -1,0 +1,9 @@
+2025/09/30 13:07:53 Start file-service on port 8080
+2025/09/30 13:07:53 Storage Directory: ./storage/files
+2025/09/30 13:07:53 Concurrency limits: Upload/Download=10, List=100
+2025/09/30 13:07:53 Server is ready to accept connections on localhost:8080
+2025/09/30 13:07:53 Use Ctrl+C to stop the server
+2025/09/30 13:07:58 Concurrency stats: Upload/Download: 1/10 active, 2 total, | List: 14/100 active, 230 total
+2025/09/30 13:08:03 Concurrency stats: Upload/Download: 0/10 active, 11 total, | List: 0/100 active, 230 total
+2025/09/30 13:08:05 Recieved interrupt signal. Shutting down..
+2025/09/30 13:08:05 Server stopped gracefully

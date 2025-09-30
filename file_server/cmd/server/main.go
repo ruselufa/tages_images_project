@@ -60,6 +60,7 @@ func main() {
 	// creating grpc server w/ concurrencyLimiter
 	srv := grpc.NewServer(
 		grpc.UnaryInterceptor(concurrencyLimiter.UnaryServerInterceptor()),
+		grpc.MaxConcurrentStreams(200), // Allow up to 200 concurrent streams
 	)
 
 	// registering service

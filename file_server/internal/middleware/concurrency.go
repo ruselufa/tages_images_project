@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strings"
 	"sync"
+	"time"
 
 	"google.golang.org/grpc"
 )
@@ -53,32 +54,36 @@ func (cl *ConcurrencyLimiter) handleUploadDownload(ctx context.Context, req inte
 			cl.updateUploadStats(-1)
 		}()
 
+		// testing limits delay
+		time.Sleep(500 * time.Millisecond)
 		return handler(ctx, req)
 
 	case <-ctx.Done():
 		return nil, ctx.Err()
 
 	default:
-		return nil, fmt.Errorf("Too many conc upload/download requests, max 10")
+		return nil, fmt.Errorf("TOO MANY CONC UPLOAD/DOWNLOAD REQUESTS, MAX 10")
 	}
 }
 
 func (cl *ConcurrencyLimiter) handleList(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
 	select {
-	case cl.uploadSemaphore <- struct{}{}:
+	case cl.listSemaphore <- struct{}{}:
 		cl.updateListStats(1)
 		defer func() {
-			<-cl.uploadSemaphore
+			<-cl.listSemaphore
 			cl.updateListStats(-1)
 		}()
 
+		// testing limits delay
+		time.Sleep(1500 * time.Millisecond)
 		return handler(ctx, req)
 
 	case <-ctx.Done():
 		return nil, ctx.Err()
 
 	default:
-		return nil, fmt.Errorf("Too many conc list requests, max 10")
+		return nil, fmt.Errorf("TOO MANY CONC LIST REQUESTS, MAX 100")
 	}
 }
 
